@@ -3,7 +3,7 @@
   --bg: #fbfaf7;
   --surface: #ffffff;
   --text: #1c1f1d;
-  --muted: #6b716d;
+  --muted: #575d59;
   --line: #e6e4de;
   --accent: #2f6b4f;        /* 메인 포인트 컬러 (딥 그린) */
   --accent-soft: #e8f0eb;
@@ -14,7 +14,7 @@
     --bg: #121413;
     --surface: #1a1d1b;
     --text: #e8ebe9;
-    --muted: #9aa29d;
+    --muted: #a9b0ab;
     --line: #2a2e2c;
     --accent: #7fc4a0;
     --accent-soft: #1f2d26;
@@ -28,7 +28,7 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.7;
-  font-size: 16px;
+  font-size: 16.5px;
   -webkit-font-smoothing: antialiased;
   word-break: keep-all;
 }
@@ -99,10 +99,16 @@ ul, ol { list-style: none; }
 .main { padding: 80px 0 60px; min-width: 0; }
 section { margin-bottom: 88px; scroll-margin-top: 60px; }
 h2 {
-  font-size: 13px; font-weight: 600;
-  text-transform: uppercase; letter-spacing: .12em;
-  color: var(--accent);
-  margin-bottom: 28px;
+  font-size: 22px; font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--text);
+  display: flex; align-items: baseline; gap: 8px;
+}
+h2 .count {
+  font-size: 14px; font-weight: 600; color: var(--accent);
 }
 .muted { color: var(--muted); font-size: 14px; }
 
@@ -180,3 +186,23 @@ h2 {
 }
 
 .me { color: var(--text); font-weight: 600; }
+
+/* ---------- 가독성 개선 ---------- */
+.pubs li, .timeline li { padding: 20px 0; border-top: none; border-bottom: 1px solid var(--line); }
+.pubs li:last-child, .timeline li:last-child { border-bottom: none; }
+.timeline.compact li { padding: 14px 0; }
+.pub-year, .t-period { color: var(--accent); font-weight: 600; font-size: 14px; padding-top: 2px; }
+.t-title, .pub-title { font-size: 17px; font-weight: 650; line-height: 1.5; letter-spacing: -0.01em; }
+.t-org { font-size: 15px; color: var(--muted); margin-top: 2px; }
+.t-desc { font-size: 15px; margin-top: 6px; }
+.pubs .muted { font-size: 14.5px; margin-top: 4px; }
+.pub-venue { font-size: 14.5px; margin-top: 2px; }
+.badge { vertical-align: 2px; background: var(--line); color: var(--muted); }
+.badge.lead { background: var(--accent-soft); color: var(--accent); }
+.pubs .badge { background: var(--accent-soft); color: var(--accent); }
+#about-body p { font-size: 17px; line-height: 1.75; }
+section { margin-bottom: 76px; }
+@media (max-width: 860px) {
+  h2 { font-size: 20px; }
+  .pubs li, .timeline li { padding: 18px 0; }
+}

@@ -60,8 +60,8 @@
       <li>
         <span class="t-period">${esc(e.period || e.year)}</span>
         <div>
-          <p class="t-title">${esc(e.title)}</p>
-          ${e.org ? `<p class="muted">${esc(e.org)}</p>` : ""}
+          <p class="t-title">${esc(e.title)}${e.badge ? ` <span class="badge ${e.badge.includes("주관") ? "lead" : ""}">${esc(e.badge)}</span>` : ""}</p>
+          ${e.org ? `<p class="t-org">${esc(e.org)}</p>` : ""}
           ${e.desc ? `<p class="t-desc">${esc(e.desc)}</p>` : ""}
         </div>
       </li>`
@@ -69,11 +69,21 @@
       .join("");
 
   $("project-list").innerHTML = timeline(
-    (S.projects || []).map((p) => ({ ...p, desc: p.role }))
+    (S.projects || []).map((p) => {
+      // 짧은 역할(주관·참여 등)은 배지로, 긴 설명은 본문으로
+      const short = p.role && p.role.length <= 6;
+      return { ...p, badge: short ? p.role : "", desc: short ? "" : p.role };
+    })
   );
   $("exp-list").innerHTML = timeline(S.experience);
   $("edu-list").innerHTML = timeline(S.education);
   $("award-list").innerHTML = timeline(S.awards);
+
+  // 섹션 제목 옆에 항목 수 표시
+  [["projects", S.projects], ["publications", S.publications]].forEach(([id, arr]) => {
+    const h = document.querySelector(`#${id} h2`);
+    if (h && arr && arr.length) h.insertAdjacentHTML("beforeend", ` <span class="count">${arr.length}</span>`);
+  });
 
   // 스크롤 위치에 따라 목차 강조
   const tocLinks = [...document.querySelectorAll(".toc a")];
